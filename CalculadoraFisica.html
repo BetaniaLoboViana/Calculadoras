@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Física</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .calculator {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom {
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        .modal-dialog {
+            max-width: 400px; 
+        }
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+        }
+        input {
+            font-size: 1.2rem; 
+        }
+        .btn-success {
+            background-color: #28a745; 
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h3 class="text-center">Calculadora de Física</h3>
+        <button class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#pesoModal">Peso</button>
+        <button class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#tracaoModal">Tração</button>
+        <button class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#dilatacaoModal">Dilat. Térmica</button>
+        <button class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#mruModal">MRU</button>
+        <button class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#mruvModal">MRUV</button>
+        <button class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#atritoModal">Força de Atrito</button>
+        <button class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#energiaCineticaModal">Energia Cinética</button>
+        <button class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#energiaPotencialModal">Energia Potencial</button>
+        <button class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#impulsoModal">Impulso</button>
+    </div>
+
+    <!-- Modal de Peso -->
+    <div class="modal fade" id="pesoModal" tabindex="-1" aria-labelledby="pesoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pesoModalLabel">Cálculo de Peso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="pesoForm">
+                        <div class="mb-3">
+                            <label for="massaPeso" class="form-label">Massa (kg):</label>
+                            <input type="number" class="form-control" id="massaPeso" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="gravidade" class="form-label">Gravidade (m/s²):</label>
+                            <input type="number" class="form-control" id="gravidade" value="9.81" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Calcular Peso</button>
+                    </form>
+                    <p class="mt-3" id="resultadoPeso"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Tração -->
+    <div class="modal fade" id="tracaoModal" tabindex="-1" aria-labelledby="tracaoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tracaoModalLabel">Cálculo de Tração</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="tracaoForm">
+                        <div class="mb-3">
+                            <label for="massaTracao" class="form-label">Massa (kg):</label>
+                            <input type="number" class="form-control" id="massaTracao" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="aceleracaoTracao" class="form-label">Aceleração (m/s²):</label>
+                            <input type="number" class="form-control" id="aceleracaoTracao" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Calcular Tração</button>
+                    </form>
+                    <p class="mt-3" id="resultadoTracao"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal - Dilatação Térmica -->
+    <div class="modal fade" id="dilatacaoModal" tabindex="-1" aria-labelledby="dilatacaoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dilatacaoModalLabel">Cálculo de Dilatação Térmica</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="dilatacaoForm">
+                        <div class="mb-3">
+                            <label for="comprimentoInicial" class="form-label">Comprimento Inicial (m):</label>
+                            <input type="number" class="form-control" id="comprimentoInicial" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="coefDil" class="form-label">Coeficiente de Dilatação:</label>
+                            <input type="number" class="form-control" id="coefDil" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="variacaoTemperatura" class="form-label">Variação de Temperatura (°C):</label>
+                            <input type="number" class="form-control" id="variacaoTemperatura" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Calcular Dilatação</button>
+                    </form>
+                    <p class="mt-3" id="resultadoDilatacao"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal - MRU -->
+    <div class="modal fade" id="mruModal" tabindex="-1" aria-labelledby="mruModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mruModalLabel">Cálculo de MRU</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="mruForm">
+                        <div class="mb-3">
+                            <label for="velocidadeMru" class="form-label">Velocidade (m/s):</label>
+                            <input type="number" class="form-control" id="velocidadeMru" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tempoMru" class="form-label">Tempo (s):</label>
+                            <input type="number" class="form-control" id="tempoMru" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Calcular Distância</button>
+                    </form>
+                    <p class="mt-3" id="resultadoMru"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal - MRUV -->
+    <div class="modal fade" id="mruvModal" tabindex="-1" aria-labelledby="mruvModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mruvModalLabel">Cálculo de MRUV</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="mruvForm">
+                        <div class="mb-3">
+                            <label for="velocidadeInicial" class="form-label">Velocidade Inicial (m/s):</label>
+                            <input type="number" class="form-control" id="velocidadeInicial" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="aceleracaoMruv" class="form-label">Aceleração (m/s²):</label>
+                            <input type="number" class="form-control" id="aceleracaoMruv" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tempoMruv" class="form-label">Tempo (s):</label>
+                            <input type="number" class="form-control" id="tempoMruv" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Calcular Deslocamento</button>
+                    </form>
+                    <p class="mt-3" id="resultadoMruv"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal - Força de Atrito -->
+    <div class="modal fade" id="atritoModal" tabindex="-1" aria-labelledby="atritoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="atritoModalLabel">Cálculo de Força de Atrito</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="atritoForm">
+                        <div class="mb-3">
+                            <label for="forcaNormal" class="form-label">Força Normal (N):</label>
+                            <input type="number" class="form-control" id="forcaNormal" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="coeficienteAtrito" class="form-label">Coeficiente de Atrito:</label>
+                            <input type="number" class="form-control" id="coeficienteAtrito" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Calcular Força de Atrito</button>
+                    </form>
+                    <p class="mt-3" id="resultadoAtrito"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal - Energia Cinética -->
+    <div class="modal fade" id="energiaCineticaModal" tabindex="-1" aria-labelledby="energiaCineticaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="energiaCineticaModalLabel">Cálculo de Energia Cinética</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="energiaCineticaForm">
+                        <div class="mb-3">
+                            <label for="massaEnergiaCinetica" class="form-label">Massa (kg):</label>
+                            <input type="number" class="form-control" id="massaEnergiaCinetica" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="velocidadeEnergiaCinetica" class="form-label">Velocidade (m/s):</label>
+                            <input type="number" class="form-control" id="velocidadeEnergiaCinetica" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Calcular Energia Cinética</button>
+                    </form>
+                    <p class="mt-3" id="resultadoEnergiaCinetica"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal - Energia Potencial -->
+    <div class="modal fade" id="energiaPotencialModal" tabindex="-1" aria-labelledby="energiaPotencialModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="energiaPotencialModalLabel">Cálculo de Energia Potencial</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="energiaPotencialForm">
+                        <div class="mb-3">
+                            <label for="massaEnergiaPotencial" class="form-label">Massa (kg):</label>
+                            <input type="number" class="form-control" id="massaEnergiaPotencial" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alturaEnergiaPotencial" class="form-label">Altura (m):</label>
+                            <input type="number" class="form-control" id="alturaEnergiaPotencial" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Calcular Energia Potencial</button>
+                    </form>
+                    <p class="mt-3" id="resultadoEnergiaPotencial"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal - Impulso -->
+    <div class="modal fade" id="impulsoModal" tabindex="-1" aria-labelledby="impulsoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="impulsoModalLabel">Cálculo de Impulso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="impulsoForm">
+                        <div class="mb-3">
+                            <label for="forcaImpulso" class="form-label">Força (N):</label>
+                            <input type="number" class="form-control" id="forcaImpulso" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tempoImpulso" class="form-label">Tempo (s):</label>
+                            <input type="number" class="form-control" id="tempoImpulso" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Calcular Impulso</button>
+                    </form>
+                    <p class="mt-3" id="resultadoImpulso"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Cálculo de Peso
+        document.getElementById('pesoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const massa = parseFloat(document.getElementById('massaPeso').value);
+            const gravidade = parseFloat(document.getElementById('gravidade').value);
+            const peso = massa * gravidade;
+            document.getElementById('resultadoPeso').innerText = `Peso: ${peso.toFixed(2)} N`;
+        });
+
+        // Cálculo de Tração
+        document.getElementById('tracaoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const massa = parseFloat(document.getElementById('massaTracao').value);
+            const aceleracao = parseFloat(document.getElementById('aceleracaoTracao').value);
+            const tracao = massa * aceleracao;
+            document.getElementById('resultadoTracao').innerText = `Tração: ${tracao.toFixed(2)} N`;
+        });
+
+        // Cálculo de Dilatação Térmica
+        document.getElementById('dilatacaoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const comprimentoInicial = parseFloat(document.getElementById('comprimentoInicial').value);
+            const coeficienteDilatacao = parseFloat(document.getElementById('coeficienteDilatacao').value);
+            const deltaTemperatura = parseFloat(document.getElementById('deltaTemperatura').value);
+            const dilatacao = comprimentoInicial * coeficienteDilatacao * deltaTemperatura;
+            document.getElementById('resultadoDilatacao').innerText = `Dilatação: ${dilatacao.toFixed(2)} m`;
+        });
+
+        // Cálculo de Distância - MRU
+        document.getElementById('mruForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const velocidade = parseFloat(document.getElementById('velocidadeMru').value);
+            const tempo = parseFloat(document.getElementById('tempoMru').value);
+            const distancia = velocidade * tempo;
+            document.getElementById('resultadoMru').innerText = `Distância: ${distancia.toFixed(2)} m`;
+        });
+
+        // Cálculo de Deslocamento - MRUV
+        document.getElementById('mruvForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const velocidadeInicial = parseFloat(document.getElementById('velocidadeInicial').value);
+            const aceleracao = parseFloat(document.getElementById('aceleracaoMruv').value);
+            const tempo = parseFloat(document.getElementById('tempoMruv').value);
+            const deslocamento = (velocidadeInicial * tempo) + (0.5 * aceleracao * tempo * tempo);
+            document.getElementById('resultadoMruv').innerText = `Deslocamento: ${deslocamento.toFixed(2)} m`;
+        });
+
+        // Cálculo de Força de Atrito
+        document.getElementById('atritoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const forcaNormal = parseFloat(document.getElementById('forcaNormal').value);
+            const coeficienteAtrito = parseFloat(document.getElementById('coeficienteAtrito').value);
+            const forcaAtrito = coeficienteAtrito * forcaNormal;
+            document.getElementById('resultadoAtrito').innerText = `Força de Atrito: ${forcaAtrito.toFixed(2)} N`;
+        });
+
+        // Cálculo de Energia Cinética
+        document.getElementById('energiaCineticaForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const massa = parseFloat(document.getElementById('massaEnergiaCinetica').value);
+            const velocidade = parseFloat(document.getElementById('velocidadeEnergiaCinetica').value);
+            const energiaCinetica = 0.5 * massa * velocidade * velocidade;
+            document.getElementById('resultadoEnergiaCinetica').innerText = `Energia Cinética: ${energiaCinetica.toFixed(2)} J`;
+        });
+
+        // Cálculo de Energia Potencial
+        document.getElementById('energiaPotencialForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const massa = parseFloat(document.getElementById('massaEnergiaPotencial').value);
+            const altura = parseFloat(document.getElementById('alturaEnergiaPotencial').value);
+            const energiaPotencial = massa * 9.81 * altura; // gravidade = 9.81 m/s²
+            document.getElementById('resultadoEnergiaPotencial').innerText = `Energia Potencial: ${energiaPotencial.toFixed(2)} J`;
+        });
+
+        // Cálculo de Impulso
+        document.getElementById('impulsoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const forca = parseFloat(document.getElementById('forcaImpulso').value);
+            const tempo = parseFloat(document.getElementById('tempoImpulso').value);
+            const impulso = forca * tempo;
+            document.getElementById('resultadoImpulso').innerText = `Impulso: ${impulso.toFixed(2)} Ns`;
+        });
+    </script>
+</body>
+
+</html>
